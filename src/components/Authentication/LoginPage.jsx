@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 import "./LoginPage.css";
 
 const LoginPage = () => {
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = (formData) => console.log(formData);
+
   return (
     <section className="align_center form_page">
-      <form className="authentication_form">
+      <form className="authentication_form" onSubmit={handleSubmit(onSubmit)}>
         <h2>Login Form</h2>
         <div className="form_inputs">
           <div>
@@ -15,6 +20,7 @@ const LoginPage = () => {
               id="name"
               className="form_text_input"
               placeholder="Enter your name"
+              {...register("name")}
             />
           </div>
           <div>
@@ -24,6 +30,7 @@ const LoginPage = () => {
               id="phone"
               className="form_text_input"
               placeholder="Enter your phone number"
+              {...register("phone", { valueAsNumber: true })}
             />
           </div>
 

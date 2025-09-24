@@ -8,7 +8,7 @@ import "./LoginPage.css";
 const schema = z.object({
   email: z
     .string()
-    .email({ message: "Please enter valid email address" })
+    .email({ message: "Please enter a valid email address" })
     .min(3),
   password: z
     .string()

@@ -32,13 +32,17 @@ const schema = z
   });
 
 const SignupPage = () => {
-  //Manage form with RHF - useForm
+  const [profilePic, setProfilePic] = useState(null);
+  //Manage form with useForm
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
+
   const onSubmit = (formData) => console.log(formData);
+
+  console.log(profilePic);
 
   return (
     <section className="align_center form_page">
@@ -50,12 +54,20 @@ const SignupPage = () => {
 
         <div className="image_input_section">
           <div className="image_preview">
-            <img src={user} id="file-ip-1-preview" />
+            <img
+              src={profilePic ? URL.createObjectURL(profilePic) : user}
+              id="file-ip-1-preview"
+            />
           </div>
           <label htmlFor="file-ip-1" className="image_label">
             Upload Image
           </label>
-          <input type="file" id="file-ip-1" className="image_input" />
+          <input
+            type="file"
+            onChange={(e) => setProfilePic(e.target.files[0])}
+            id="file-ip-1"
+            className="image_input"
+          />
         </div>
 
         {/* Form Inputs */}

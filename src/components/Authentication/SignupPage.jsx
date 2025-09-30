@@ -55,7 +55,7 @@ const SignupPage = () => {
         <div className="image_input_section">
           <div className="image_preview">
             <img
-              src={profilePic ? URL.createObjectURL(profilePic) : user}
+              src={profilePic ? URL.createObjectURL(profilePic) : user} //if there is no profile pic uploaded, show the default user pic
               id="file-ip-1-preview"
             />
           </div>

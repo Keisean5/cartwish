@@ -1,0 +1,7 @@
+.myorder_page {
+  flex-direction: column;
+  justify-content: center;
+  width: 60%;
+  margin: 0 auto;
+  padding: 32px 48px;
+}

@@ -53,13 +53,17 @@ const Navbar = ({ cartCount }) => {
   };
 
   useEffect(() => {
-    if (search.trim() !== "") {
-      getSuggestionsAPI(search)
-        .then((res) => setSuggestions(res.data))
-        .catch((err) => console.log(err));
-    } else {
-      setSuggestions([]);
-    }
+    const delaySuggestions = setTimeout(() => {
+      if (search.trim() !== "") {
+        getSuggestionsAPI(search)
+          .then((res) => setSuggestions(res.data))
+          .catch((err) => console.log(err));
+      } else {
+        setSuggestions([]);
+      }
+    }, 300);
+
+    return () => clearTimeout(delaySuggestions);
   }, [search]);
 
   console.log(suggestions);

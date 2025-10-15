@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import "./Navbar.css";
 import rocket from "../../assets/rocket.png";
@@ -8,12 +8,14 @@ import memo from "../../assets/memo.png";
 import order from "../../assets/package.png";
 import lock from "../../assets/locked.png";
 import LinkWithIcon from "./LinkWithIcon";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import UserContext from "../../contexts/UserContext";
 import CartContext from "../../contexts/CartContext";
+import { getSuggestionsAPI } from "../../services/productServices";
 
 const Navbar = ({ cartCount }) => {
   const [search, setSearch] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
   const navigate = useNavigate();
 
   const user = useContext(UserContext);
@@ -24,7 +26,21 @@ const Navbar = ({ cartCount }) => {
     if (search.trim() !== "") {
       navigate(`/products?search=${search.trim()}`);
     }
+    setSuggestions([]);
   };
+
+  useEffect(() => {
+    if (search.trim() !== "") {
+      getSuggestionsAPI(search)
+        .then((res) => setSuggestions(res.data))
+        .catch((err) => console.log(err));
+    } else {
+      setSuggestions([]);
+    }
+  }, [search]);
+
+  console.log(suggestions);
+
   return (
     <nav className="align_center navbar">
       <div className="align_center">
@@ -40,6 +56,24 @@ const Navbar = ({ cartCount }) => {
           <button type="submit" className="search_button">
             Search
           </button>
+
+          {suggestions.length > 0 && (
+            <ul className="search_result">
+              {suggestions.map((suggestion) => (
+                <li className="search_suggestion_link" key={suggestion._id}>
+                  <Link
+                    to={`/products?search=${suggestion.title}`}
+                    onClick={() => {
+                      setSearch(suggestion.title);
+                      setSuggestions([]);
+                    }}
+                  >
+                    {suggestion.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
         </form>
       </div>
       <div className="align_center navbar_links">

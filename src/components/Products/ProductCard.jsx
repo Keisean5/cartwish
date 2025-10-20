@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { memo, useContext } from "react";
 
 import "./ProductCard.css";
 
@@ -47,4 +47,4 @@ const ProductCard = ({ product }) => {
   );
 };
 
-export default ProductCard;
+export default memo(ProductCard);

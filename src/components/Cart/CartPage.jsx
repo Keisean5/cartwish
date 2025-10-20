@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from "react";
+import React, { memo, useContext, useMemo } from "react";
 // import React, { useEffect, useState, useContext, useMemo } from "react";
 
 import UserContext from "../../contexts/UserContext";
@@ -111,4 +111,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+export default memo(CartPage);

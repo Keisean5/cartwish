@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { memo, useContext } from "react";
 import { useState } from "react";
 
 import "./SingleProductPage.css";
@@ -73,4 +73,4 @@ const SingleProductPage = () => {
   );
 };
 
-export default SingleProductPage;
+export default memo(SingleProductPage);
